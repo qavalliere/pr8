@@ -1,0 +1,106 @@
+#include <iostream>
+
+#include <string>
+
+using namespace std;
+
+enum scale {ounces, kilograms};
+
+class ZooAnimal {
+
+private:
+
+    string name;
+
+    int cageNumber, weightDate, weight;
+
+    // Дата у форматі MMDD, рік невисокосний.
+
+    int dayNumber(int date) {
+
+        int days[] = {31,28,31,30,31,30,
+
+                      31,31,30,31,30,31};
+
+        int sum = date % 100;
+
+        for (int i = 0; i < date / 100 - 1; i++)
+
+            sum += days[i];
+
+        return sum;
+
+    }
+
+public:
+
+    ZooAnimal(string n = "Nameless", int c = 9999,
+
+              int d = 101, int w = 100) {
+
+        Create(n, c, d, w);
+
+    }
+
+    void Create(string n, int c, int d, int w) {
+
+        name = n;
+
+        cageNumber = c;
+
+        weightDate = d;
+
+        weight = w;
+
+    }
+
+    void Destroy() { name.clear(); }
+
+    ~ZooAnimal() = default;
+
+    void changeWeight(int pounds);
+
+    void changeWeightDate(int today);
+
+    string reptName() { return name; }
+
+    int reptWeight();
+
+    void reptWeight(scale which);
+
+    int reptWeightDate() { return weightDate; }
+
+    int daysSinceLastWeighed(int today);
+
+};
+
+int ZooAnimal::daysSinceLastWeighed(int today) {
+
+    int diff = dayNumber(today) - dayNumber(weightDate);
+
+    if (diff < 0) diff += 365;
+
+    return diff;
+
+}
+
+int main() {
+
+    ZooAnimal bozo("Bozo", 408, 1027, 400);
+
+    ZooAnimal animal;
+
+    cout << "Ім'я: " << bozo.reptName() << endl;
+
+    cout << "Дата зважування: " << bozo.reptWeightDate() << endl;
+
+    cout << "Днів минуло: " << bozo.daysSinceLastWeighed(1105) << endl;
+
+    cout << "Об'єкт за замовчуванням: " << animal.reptName() << endl;
+
+    bozo.Destroy();
+
+    return 0;
+
+}
+
