@@ -1,0 +1,79 @@
+#include <iostream>
+
+#include <cmath>
+
+using namespace std;
+
+class Line {
+
+private:
+
+    double a, b, c;
+
+public:
+
+    bool input() {
+
+        cout << "Введіть a, b, c: ";
+
+        return (cin >> a >> b >> c) && (a != 0 || b != 0);
+
+    }
+
+    void print() {
+
+        cout << a << "x " << showpos << b << "y "
+
+             << c << noshowpos << " = 0\n";
+
+    }
+
+    void intersections() {
+
+        // На осі Ox значення y дорівнює нулю.
+
+        if (a != 0)
+
+            cout << "Ox: (" << -c / a << ", 0)\n";
+
+        else if (c == 0)
+
+            cout << "Пряма збігається з Ox\n";
+
+        else cout << "Перетину з Ox немає\n";
+
+        // На осі Oy значення x дорівнює нулю.
+
+        if (b != 0)
+
+            cout << "Oy: (0, " << -c / b << ")\n";
+
+        else if (c == 0)
+
+            cout << "Пряма збігається з Oy\n";
+
+        else cout << "Перетину з Oy немає\n";
+
+    }
+
+};
+
+int main() {
+
+    Line line;
+
+    if (!line.input()) {
+
+        cout << "Некоректні коефіцієнти\n";
+
+        return 1;
+
+    }
+
+    line.print();
+
+    line.intersections();
+
+    return 0;
+
+}
